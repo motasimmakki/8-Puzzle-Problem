@@ -6,12 +6,13 @@ import java.util.*;
 public class Puzzle extends JFrame implements ActionListener
 {  
 	JButton[] b=new JButton[9];  
-	JButton shuffle,solve;  
+	JButton shuffle,solve,change;  
 	
 	ImageIcon[] ii=new ImageIcon[9];
 	Random r=new Random();
 	int i, heuristic=9;
 	static int solvingStep=0;
+	static int imageCount=0;
 	int[] allHeuristic=new int[]{9,9,9,9};
 	java.util.List<Integer> indexList=new ArrayList<Integer>();
 
@@ -57,6 +58,7 @@ public class Puzzle extends JFrame implements ActionListener
   
 		shuffle=new JButton("SHUFFLE");  
 		solve=new JButton("SOLVE");   
+		change=new JButton("CHANGE");   
 
 		b[0].setBounds(20,10,200,200);  
 		b[1].setBounds(220,10,200,200);  
@@ -68,25 +70,30 @@ public class Puzzle extends JFrame implements ActionListener
 		b[7].setBounds(220,410,200,200);  
 		b[8].setBounds(420,410,200,200);
 
-		shuffle.setBounds(80,625,200,50);  
-		solve.setBounds(360,625,200,50);
+		shuffle.setBounds(40,625,150,50);  
+		solve.setBounds(240,625,150,50);
+		change.setBounds(440,625,150,50);
 
 		for(i=0;i<9;i++)
 			add(b[i]);  
     
-		add(shuffle);add(solve);  
+		add(shuffle);add(solve);add(change);   
 		
 		for(i=0;i<9;i++)
 			b[i].addActionListener(this);   
 
 		shuffle.addActionListener(this);  
 		solve.addActionListener(this);  
+		change.addActionListener(this);  
   
 		shuffle.setBackground(Color.black);  
 		shuffle.setForeground(Color.green); 
 
 		solve.setBackground(Color.black);  
-		solve.setForeground(Color.green); 
+		solve.setForeground(Color.green);
+
+		change.setBackground(Color.black);  
+		change.setForeground(Color.green); 
 
 		setSize(650,730);
 		setResizable(false);
@@ -321,6 +328,58 @@ public class Puzzle extends JFrame implements ActionListener
 			for(i=0;i<9;i++)
 				b[i].setIcon(ii[indexList.get(i)]);
 
+		}//end of if
+
+		//Change Puzzle Image
+		if(e.getSource()==change){
+			dir="./images/";
+			imageCount++;
+
+			//Change Image
+			if(imageCount==1){
+				dir=dir+""+1+"/";
+				for(i=0;i<9;i++){
+					if(i!=2)
+						ii[i]=new ImageIcon(dir+"profile"+(i+1)+ext);   
+				}
+				ii[2]=new ImageIcon(dir+"space"+ext);
+			}
+			
+			else if(imageCount==2){
+				dir=dir+""+2+"/";
+				for(i=0;i<9;i++)
+					if(i!=0)
+						ii[i]=new ImageIcon(dir+"profile"+(i+1)+ext);   
+				ii[0]=new ImageIcon(dir+"space"+ext); 
+			}
+
+			else if(imageCount==3){
+				dir=dir+""+3+"/";
+				for(i=0;i<9;i++)
+					if(i!=0)
+						ii[i]=new ImageIcon(dir+"profile"+(i+1)+ext);   
+				ii[0]=new ImageIcon(dir+"space"+ext); 
+			}
+
+			else if(imageCount==4){
+				dir="./TestPic/";
+
+				for(i=0;i<8;i++)
+					ii[i]=new ImageIcon(dir+"TestPic"+(i+1)+".jpg");  
+				ii[i]=new ImageIcon(dir+"space"+ext);
+
+				imageCount=0;
+			}
+
+			for(i=0;i<9;i++)
+				b[i].setIcon(ii[i]);
+
+			solvingStep=0;
+			Collections.shuffle(indexList); 
+			for(i=0;i<9;i++)
+				b[i].setIcon(ii[indexList.get(i)]);
+
+			JOptionPane.showMessageDialog(Puzzle.this,"!!! IMAGE CHANGED !!!");
 		}//end of if  
 
 		if(e.getSource()==solve){  
