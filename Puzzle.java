@@ -17,17 +17,10 @@ public class Puzzle extends JFrame implements ActionListener
 	java.util.List<Integer> indexList=new ArrayList<Integer>();
 
 	String dir="./TestPic/";
-	// String dir="./images/";
 	String ext=".jpg";
 	Puzzle()
 	{  
-		super("Image Puzzle");
-		
-		//My Images
-		// for(i=0;i<9;i++)
-		// 	if(i!=2)
-		// 		ii[i]=new ImageIcon(dir+"profile"+(i+1)+ext);   
-		// ii[2]=new ImageIcon(dir+"space"+ext);  
+		super("Image Puzzle");  
 
 		//Test Images
 		for(i=0;i<8;i++)
@@ -74,6 +67,19 @@ public class Puzzle extends JFrame implements ActionListener
 		solve.setBounds(240,625,150,50);
 		change.setBounds(440,625,150,50);
 
+		shuffle.setFocusPainted(false);
+		shuffle.setContentAreaFilled(false);
+
+		solve.setFocusPainted(false);
+		solve.setContentAreaFilled(false);
+
+		change.setFocusPainted(false);
+		change.setContentAreaFilled(false);
+
+		shuffle.setBorder(new RoundedBorder(40)); //40 is the radius
+		solve.setBorder(new RoundedBorder(40)); //40 is the radius
+		change.setBorder(new RoundedBorder(40)); //40 is the radius
+
 		for(i=0;i<9;i++)
 			add(b[i]);  
     
@@ -86,14 +92,17 @@ public class Puzzle extends JFrame implements ActionListener
 		solve.addActionListener(this);  
 		change.addActionListener(this);  
   
-		shuffle.setBackground(Color.black);  
-		shuffle.setForeground(Color.green); 
+		// shuffle.setBackground(Color.BLACK);  
+		shuffle.setForeground(Color.BLACK);
+		shuffle.setFont(new Font("Arial", Font.PLAIN, 15)); 
 
-		solve.setBackground(Color.black);  
-		solve.setForeground(Color.green);
+		// solve.setBackground(Color.BLACK);  
+		solve.setForeground(Color.BLACK);
+		solve.setFont(new Font("Arial", Font.PLAIN, 15)); 
 
-		change.setBackground(Color.black);  
-		change.setForeground(Color.green); 
+		// change.setBackground(Color.BLACK);  
+		change.setForeground(Color.BLACK); 
+		change.setFont(new Font("Arial", Font.PLAIN, 15)); 
 
 		setSize(650,730);
 		setResizable(false);
